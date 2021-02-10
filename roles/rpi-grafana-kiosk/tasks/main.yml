@@ -19,6 +19,16 @@
   notify:
     - Restart sshd
 
+- name: Install xserver-xorg
+  package:
+    name: xserver-xorg
+    state: present
+
+- name: Install xinit
+  package:
+    name: xinit
+    state: present
+
 - name: Install openbox
   package:
     name: openbox
@@ -38,6 +48,37 @@
   package:
     name: xdotool
     state: present
+
+- name: Install screen
+  package:
+    name: screen
+    state: present
+
+- name: Copy tty1 systemd file
+  copy:
+    dest: /etc/systemd/system/getty@tty1.service.d/override.conf
+    src: getty@tty1.service
+    mode: '664'
+
+- name: Enable getty@tty service
+  systemd:
+    daemon_reload: true
+    name: getty@tty1
+    enabled: true
+
+- name: Create openbox autostart directory
+  file:
+    path: /home/pi/.config/openbox/
+    state: directory
+    group: pi
+    owner: pi
+
+- name: Copy openbox autostart file
+  copy:
+    dest: /home/pi/.config/openbox/autostart
+    src: openbox-autostart
+    group: pi
+    owner: pi
 
 - name: Create grafana-kiosk directory
   file:
@@ -60,18 +101,3 @@
     src: grafana-kiosk-config.yaml
     group: pi
     owner: pi
-
-- name: Copy grafana-kiosk systemd file
-  copy:
-    dest: /etc/systemd/user/grafana-kiosk.service
-    src: grafana-kiosk.service
-    mode: '664'
-
-- name: Enable grafana-kiosk service
-  systemd:
-    daemon_reload: true
-    name: grafana-kiosk
-    enabled: true
-    state: started
-    scope: user
-  become: false

@@ -5,7 +5,7 @@ general:
   lxde-home: /home/pi
 
 target:
-  login-method: gcom
+  login-method: local
   username: pi-grafana-kiosk
   password: pi-grafana-kiosk-password
   playlist: true

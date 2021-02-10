@@ -14,6 +14,7 @@ To add `ansible.posix` collection
 
 ```
 ansible-galaxy collection install ansible.posix
+ansible-galaxy collection install community.general
 ```
 
 ### Initial SSH configuration

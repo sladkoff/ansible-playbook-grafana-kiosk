@@ -1,0 +1,1 @@
+screen -d -m bash -c "/home/pi/grafana-kiosk/grafana-kiosk.linux.armv7 -c /home/pi/grafana-kiosk/grafana-kiosk-config.yaml"
