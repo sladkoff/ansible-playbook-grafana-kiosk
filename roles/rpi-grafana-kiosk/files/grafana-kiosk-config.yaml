@@ -9,5 +9,5 @@ target:
   username: pi-grafana-kiosk
   password: pi-grafana-kiosk-password
   playlist: true
-  URL: https://grafana.sldk.de/d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&kiosk&autofitpanels
+  URL: https://grafana.sldk.de/playlists/play/1?kiosk&autofitpanels
   ignore-certificate-errors: false
