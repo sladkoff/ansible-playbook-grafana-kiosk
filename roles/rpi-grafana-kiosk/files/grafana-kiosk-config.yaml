@@ -1,0 +1,13 @@
+general:
+  kiosk-mode: full
+  autofit: true
+  lxde: false
+  lxde-home: /home/pi
+
+target:
+  login-method: gcom
+  username: pi-grafana-kiosk
+  password: pi-grafana-kiosk-password
+  playlist: true
+  URL: https://grafana.sldk.de/d/fa49a4706d07a042595b664c87fb33ea/nodes?orgId=1&kiosk&autofitpanels
+  ignore-certificate-errors: false

@@ -1,0 +1,77 @@
+---
+# tasks file for rpi-grafana-kiosk
+- name: Deploy SSH Key
+  ansible.posix.authorized_key:
+    user: pi
+    state: present
+    key: https://github.com/sladkoff.keys
+    validate_certs: False
+  notify:
+    - Restart sshd
+
+- name: Disable Password Authentication
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: '^PasswordAuthentication'
+    line: "PasswordAuthentication no"
+    state: present
+    backup: yes
+  notify:
+    - Restart sshd
+
+- name: Install openbox
+  package:
+    name: openbox
+    state: present
+
+- name: Install Chrome
+  package:
+    name: chromium-browser
+    state: present
+
+- name: Install unclutter
+  package:
+    name: unclutter
+    state: present
+
+- name: Install xdotool
+  package:
+    name: xdotool
+    state: present
+
+- name: Create grafana-kiosk directory
+  file:
+    path: /home/pi/grafana-kiosk/
+    state: directory
+    group: pi
+    owner: pi
+
+- name: Download grafana-kiosk
+  get_url:
+    dest: /home/pi/grafana-kiosk/
+    url: https://github.com/grafana/grafana-kiosk/releases/download/v1.0.2/grafana-kiosk.linux.armv7
+    group: pi
+    owner: pi
+    mode: '744'
+
+- name: Copy grafana-kiosk configuration file
+  copy:
+    dest: /home/pi/grafana-kiosk/
+    src: grafana-kiosk-config.yaml
+    group: pi
+    owner: pi
+
+- name: Copy grafana-kiosk systemd file
+  copy:
+    dest: /etc/systemd/user/grafana-kiosk.service
+    src: grafana-kiosk.service
+    mode: '664'
+
+- name: Enable grafana-kiosk service
+  systemd:
+    daemon_reload: true
+    name: grafana-kiosk
+    enabled: true
+    state: started
+    scope: user
+  become: false

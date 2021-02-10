@@ -1,25 +1,5 @@
 ---
 - name: “Play 1”
   hosts: rpi-tv
-  roles: 
-
-  tasks:
-    - name: Deploy SSH Key
-      ansible.posix.authorized_key:
-        user: pi
-        state: present
-        key: https://github.com/sladkoff.keys
-        validate_certs: False
-
-    - name: Disable Password Authentication
-      lineinfile:
-        dest: /etc/ssh/sshd_config
-        regexp: '^PasswordAuthentication'
-        line: "PasswordAuthentication no"
-        state: present
-        backup: yes
-
-    - name: restart ssh
-      service:
-        name: sshd
-        state: restarted
+  roles:
+    - roles/rpi-grafana-kiosk
