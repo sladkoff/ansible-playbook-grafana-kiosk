@@ -2,6 +2,17 @@
 
 Ansible resources for setting up my raspberry pi.
 
+## Commands
+
+This example playbook performs the following tasks:
+
+- Uploads
+- disable password authentication
+
+```bash
+ansible-playbook install-grafana-kiosk -i hosts --ask-pass
+```
+
 ## Steps taken (to be removed)
 
 To create role structure

@@ -1,5 +1,0 @@
----
-- name: “Play 1”
-  hosts: rpi-tv
-  roles:
-    - roles/rpi-grafana-kiosk

@@ -2,7 +2,6 @@ general:
   kiosk-mode: full
   autofit: true
   lxde: false
-  lxde-home: /home/pi
 
 target:
   login-method: local
