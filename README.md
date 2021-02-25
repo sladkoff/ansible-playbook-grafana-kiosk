@@ -1,40 +1,22 @@
-# ansible-rpi
+# ansible-playbook-grafana-kiosk
 
-Ansible resources for setting up my raspberry pi.
+I use this playbook to set up a Grafana Kiosk on a Headless Raspberry Pi.
 
-## Commands
+This playbook performs the following tasks:
 
-This example playbook performs the following tasks:
+- Uploads **my** ssh keys to the host (:warning: don't blindly copy this to your machines :smile_cat:)
+- Disables password authentication on the host
+- Runs [ansible-role-grafana-kiosk](https://github.com/sladkoff/ansible-role-grafana-kiosk):
+  - Installs graphical environment (openbox + chromium)
+  - Installs [grafana-kiosk](https://github.com/grafana/grafana-kiosk)
+  - Autostarts grafana-kiosk on login
 
-- Uploads
-- disable password authentication
+## Play :play_or_pause_button: 
 
 ```bash
-ansible-playbook install-grafana-kiosk -i hosts --ask-pass
+# First run must include --ask-pass
+ansible-playbook install-grafana-kiosk -i hosts.yaml --ask-pass
+# Consecutive runs
+ansible-playbook install-grafana-kiosk -i hosts.yaml
 ```
 
-## Steps taken (to be removed)
-
-To create role structure
-
-```
-ansible-galaxy init rpitv
-```
-
-To add `ansible.posix` collection
-
-```
-ansible-galaxy collection install ansible.posix
-ansible-galaxy collection install community.general
-```
-
-### Initial SSH configuration
-
-Initially SSH pubkey authentication is disabled.
-
-Run playbook with:
-
-
-```
-ansible-playbook site.yaml -b -i hosts --ask-pass
-```
